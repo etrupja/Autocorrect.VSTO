@@ -91,7 +91,7 @@ namespace Autocorrect.VSTO
             //{
             //    MessageBox.Show("You pressed spacebar - wParam");
             //}
-            
+
             //if (nCode >= 0)
             //{
             //    Debug.WriteLine("Key event detected.");
@@ -125,12 +125,53 @@ namespace Autocorrect.VSTO
 
         private void onKeyUp(KeyEventArgs args)
         {
-            MessageBox.Show($"onKeyUp - {args.KeyCode.ToString()}");
+            MessageBox.Show($"onKeyUp - {args.KeyCode.ToString()}. Text - {Globals.ThisAddIn.Application.Selection.Text}");
         }
 
         private void onKeyDown(KeyEventArgs args)
         {
-            MessageBox.Show($"onKeyDown - {args.KeyCode.ToString()}");
+            Word._Document oDoc = Globals.ThisAddIn.Application.ActiveDocument;
+            int start = oDoc.Content.Start;
+            int end = oDoc.Content.End;
+
+            string text = oDoc.Range(start, end).Text;
+            string lastWord = text.Split(' ').Last();
+            var finalResult = lastWord.Replace("\r", "");
+
+            switch (finalResult)
+            {
+                case "eshte":
+                    oDoc.Range(text.IndexOf(" ") + 1, end).Text = "është";
+                    break;
+                case "nje":
+                    oDoc.Range(text.IndexOf(" ") + 1, end).Text = "një";
+                    break;
+                case "per":
+                    oDoc.Range(text.IndexOf(" ") + 1, end).Text = "për";
+                    break;
+                case "te":
+                    oDoc.Range(text.IndexOf(" ") + 1, end).Text = "të";
+                    break;
+                case "pare":
+                    oDoc.Range(text.IndexOf(" ") + 1, end).Text = "parë";
+                    break;
+                case "funksionoje":
+                    oDoc.Range(text.IndexOf(" ") + 1, end).Text = "funksionojë";
+                    break;
+
+
+            }
+
+            //end = oDoc.Content.End;
+
+            //var rng = oDoc.Range(start, end);
+            //object NewEndPos = oDoc.Range(text.LastIndexOf(" ") + 1, end).StoryLength - 1;
+            //int lastIndex = text.LastIndexOf("\r");
+            //oDoc.Range(lastIndex - 1, lastIndex).Select();
+            //rng.Select();44
+            //oDoc.Range(start, end).Collapse(Word.WdCollapseDirection.wdCollapseEnd);
+            //oDoc.Range(end-1, end).Select();
+
         }
 
 
