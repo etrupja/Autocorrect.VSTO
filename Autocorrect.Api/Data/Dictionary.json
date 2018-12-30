@@ -1,0 +1,70 @@
+[
+  {
+    "Right": "paafrueshëm",
+    "Wrong": "PAAFRUESHEM"
+  },
+  {
+    "Right": "PAAFTË",
+    "Wrong": "PAAFTE"
+  },
+  {
+    "Right": "PAAFTËSI\n",
+    "Wrong": "PAAFTESI\n"
+  },
+  {
+    "Right": "PAAJËR",
+    "Wrong": "PAAJER"
+  },
+  {
+    "Right": "PAAMËZ",
+    "Wrong": "PAAMEZ"
+  },
+  {
+    "Right": "PAANË",
+    "Wrong": "PAANE"
+  },
+  {
+    "Right": "PAANËSI",
+    "Wrong": "PAANESI"
+  },
+  {
+    "Right": "PAANSHËM",
+    "Wrong": "PAANSHEM"
+  },
+  {
+    "Right": "PAANËSISHT",
+    "Wrong": "PAANESISHT"
+  },
+  {
+    "Right": "PAANSHMËRI",
+    "Wrong": "PAANSHMERI"
+  },
+  {
+    "Right": "PAAPELUESHËM",
+    "Wrong": "PAAPELUESHEM"
+  },
+  {
+    "Right": "PAARSYESHËM",
+    "Wrong": "PAARSYESHEM"
+  },
+  {
+    "Right": "PAARRITSHËM",
+    "Wrong": "PAARRITSHEM"
+  },
+  {
+    "Right": "PAARRIRË",
+    "Wrong": "PAARRIRE"
+  },
+  {
+    "Right": "PAASGJËSUESHËM",
+    "Wrong": "PAASGJESUESHEM"
+  },
+  {
+    "Right": "PABABË",
+    "Wrong": "PABABE"
+  },
+  {
+    "Right": "PABANUESHËM",
+    "Wrong": "PABANUESHEM"
+  }
+]
