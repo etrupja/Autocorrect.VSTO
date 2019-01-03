@@ -35,7 +35,6 @@ namespace Autocorrect.Common
         }
         private IntPtr KeyboardHookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            Debug.WriteLine($"ncode {nCode} wparam {wParam} lparam {lParam}");
             const int HC_ACTION = 0;
             if (nCode == HC_ACTION)
             {

@@ -6,7 +6,7 @@ namespace Autocorrect.Api.Models
 {
     class WordDictionaryModel
     {
-        public string Wrong { get; set; }
-        public string Right { get; set; }
+        public string WrongWord { get; set; }
+        public string RightWord { get; set; }
     }
 }

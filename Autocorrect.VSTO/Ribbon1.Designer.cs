@@ -37,7 +37,8 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.AlGrammar = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.button1 = this.Factory.CreateRibbonButton();
+            this.correctall = this.Factory.CreateRibbonButton();
+            this.correctselected = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.AlGrammar.SuspendLayout();
             this.group1.SuspendLayout();
@@ -59,14 +60,22 @@
             // 
             // group1
             // 
-            this.group1.Items.Add(this.button1);
+            this.group1.Items.Add(this.correctall);
+            this.group1.Items.Add(this.correctselected);
             this.group1.Label = "group1";
             this.group1.Name = "group1";
             // 
-            // button1
+            // correctall
             // 
-            this.button1.Label = "button1";
-            this.button1.Name = "button1";
+            this.correctall.Label = "Korrigjo te gjithe dokumentin(Experimental)";
+            this.correctall.Name = "correctall";
+            this.correctall.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctall_Click);
+            // 
+            // correctselected
+            // 
+            this.correctselected.Label = "Korrigjo pjesen e zgjedhur(Experimental)";
+            this.correctselected.Name = "correctselected";
+            this.correctselected.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctselected_Click);
             // 
             // Ribbon1
             // 
@@ -90,7 +99,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         private Microsoft.Office.Tools.Ribbon.RibbonTab AlGrammar;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton correctall;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton correctselected;
     }
 
     partial class ThisRibbonCollection
