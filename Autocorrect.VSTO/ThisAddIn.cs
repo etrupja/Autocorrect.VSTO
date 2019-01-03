@@ -21,6 +21,8 @@ namespace Autocorrect.VSTO
         private SpellChecker _spellChecker;
         private void ThisAddIn_Startup(object sender, EventArgs e)
         {
+            
+            DataProvider.SyncData();
             _helper.RegisterEvents();
             _helper.OnKeyUp += OnKeyUp;
             _spellChecker = new SpellChecker();
@@ -35,8 +37,7 @@ namespace Autocorrect.VSTO
 
         private async void OnKeyUp(object sender,KeyEventArgs args)
         {
-            //return;
-            if (args.KeyCode != Keys.Space) return;
+            if (!new Keys[] { Keys.Space, Keys.OemPeriod }.Contains(args.KeyCode)) return;
             var doc = Globals.ThisAddIn.Application.ActiveDocument;
 
             Word.Selection sel = doc.Application.Selection;
