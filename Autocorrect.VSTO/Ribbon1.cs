@@ -14,18 +14,24 @@ namespace Autocorrect.VSTO
 
         }
 
-        private void button1_Click(object sender, RibbonControlEventArgs e)
+     
+
+        private void correctselected_Click(object sender, RibbonControlEventArgs e)
         {
-            var doc = Globals.ThisAddIn.Application.ActiveDocument;
-            Word.Selection sel = doc.Application.Selection;
-            object unit = Word.WdUnits.wdCharacter;
-            object count = 1;
-            object extend = Word.WdMovementType.wdMove;
-            sel.MoveLeft(ref unit, ref count, ref extend);
-            object unit1 = Word.WdUnits.wdWord;
-            object extend1 = Word.WdMovementType.wdExtend;
-            doc.Application.Selection.MoveLeft(ref unit1, ref count, ref extend1);
-            doc.Application.Selection.Font.Underline = Word.WdUnderline.wdUnderlineSingle;
+
+        }
+
+        private void correctall_Click(object sender, RibbonControlEventArgs e)
+        {
+            var wordDoc = Globals.ThisAddIn.Application.ActiveDocument;
+            
+            for(var i = 1; i <= wordDoc.Words.Count; i++)
+            {
+                var range = wordDoc.Words[i];
+                if (string.IsNullOrEmpty(range.Text)) continue;
+                var replacementText = "blablabla";
+                if (!string.IsNullOrEmpty(replacementText)) range.Text = replacementText;
+            }
         }
     }
 }
