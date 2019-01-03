@@ -2,69 +2,26 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Autocorrect.Api.Services
 {
-    public static class DataProvider
+    public class DataProvider
     {
-        static HttpClient _client;
-        public static Dictionary<string, string> Data;
-        static DataProvider()
+        public Dictionary<string,string> GetData()
         {
-            CreateDictionaryIfNotExists();
-            _client = new HttpClient();
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.ServicePointManager.SecurityProtocol | System.Net.SecurityProtocolType.Tls12;
-
-            Data = GetData();
-
-        }
-        public static string StorageFilePath{get{ return Path.Combine(StorageFolderPath,"Dictionary.json"); } }
-        public static string StorageFolderPath{get{ return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ShkruajShqip"); } }
-        public static Dictionary<string,string> GetData()
-        {
-
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data/Dictionary.json");
             // deserialize JSON directly from a file
-            using (StreamReader file = new StreamReader(StorageFilePath))
+            using (StreamReader file = new StreamReader(filePath, Encoding.GetEncoding("iso-8859-1")))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 var result = (IEnumerable<WordDictionaryModel>)serializer.Deserialize(file, typeof(IEnumerable<WordDictionaryModel>));
-                return result.ToDictionary(x => x.WrongWord, y => y.RightWord, StringComparer.InvariantCultureIgnoreCase);
-            }      
+                return result.ToDictionary(x => x.Wrong, y => y.Right, StringComparer.InvariantCultureIgnoreCase);
+            }
+        
             
-        }
-        private static async Task SetData(string content)
-        {
-            // deserialize JSON directly from a file
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(StorageFilePath, false))
-            {
-                await file.WriteAsync(content);
-            }
-        }
-
-        public static async Task SyncData()
-        {
-            var request = await _client.GetAsync("https://autocorrectapi.azurewebsites.net/api/SpecialWords/getallwords");
-            var content = await request.Content.ReadAsStringAsync();
-            await SetData(content);
-            Data = GetData();
-        }
-        public static void CreateDictionaryIfNotExists()
-        {
-            if (!Directory.Exists(StorageFolderPath)) Directory.CreateDirectory(StorageFolderPath);
-            if (!File.Exists(StorageFilePath)) 
-            {
-
-                using (var tw = new StreamWriter(StorageFilePath,false))
-                {
-                    tw.Write("[]");
-                }
-            }
         }
     }
 }

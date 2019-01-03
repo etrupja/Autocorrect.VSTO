@@ -11,16 +11,18 @@ namespace Autocorrect.Api.Services
     }
     public class SpellChecker
     {
+        Dictionary<string, string> _dictionary;
         public SpellChecker()
         {
+            _dictionary = new DataProvider().GetData();
         }
         public async Task<string> CheckSpell(string input)
         {
             if (string.IsNullOrEmpty(input)) return string.Empty;
 
-            if (DataProvider.Data.ContainsKey(input))
+            if (_dictionary.ContainsKey(input))
             {
-                var correctValue = DataProvider.Data[input];
+                var correctValue =  _dictionary[input];
                 return ReplaceAlCharacters(input, correctValue);
             }
             return string.Empty;
@@ -44,7 +46,7 @@ namespace Autocorrect.Api.Services
                 }
                 else
                 {
-                    outputArray[i] = input[i];
+                    outputArray[i] = output[i];
                 }
             }
            return new string(outputArray);
