@@ -14,7 +14,7 @@ namespace Autocorrect.Api.Services
         public SpellChecker()
         {
         }
-        public async Task<string> CheckSpell(string input)
+        public  string CheckSpell(string input)
         {
             if (string.IsNullOrEmpty(input)) return string.Empty;
 

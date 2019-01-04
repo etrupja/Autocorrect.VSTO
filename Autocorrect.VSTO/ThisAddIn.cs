@@ -35,7 +35,7 @@ namespace Autocorrect.VSTO
 
        
 
-        private async void OnKeyUp(object sender,KeyEventArgs args)
+        private  void OnKeyUp(object sender,KeyEventArgs args)
         {
             if (!new Keys[] { Keys.Space, Keys.OemPeriod }.Contains(args.KeyCode)) return;
             var doc = Globals.ThisAddIn.Application.ActiveDocument;
@@ -50,7 +50,7 @@ namespace Autocorrect.VSTO
             object collapseDirection = Word.WdCollapseDirection.wdCollapseEnd;
             doc.Application.Selection.MoveLeft(ref unit1, ref count, ref extend1);
             var text = doc.Application.Selection.Text;
-            var result =await _spellChecker.CheckSpell(text);
+            var result = _spellChecker.CheckSpell(text);
             if (!string.IsNullOrWhiteSpace(result)) doc.Application.Selection.Text = result;
             doc.Application.Selection.Collapse(ref collapseDirection);
         }

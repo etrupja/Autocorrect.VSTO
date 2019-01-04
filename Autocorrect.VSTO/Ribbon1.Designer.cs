@@ -37,11 +37,19 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.AlGrammar = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
+            this.licensing = this.Factory.CreateRibbonGroup();
+            this.LicenseDetails = this.Factory.CreateRibbonGroup();
+            this.expirationDateLable = this.Factory.CreateRibbonLabel();
+            this.expirationDateValueLabel = this.Factory.CreateRibbonLabel();
+            this.hasExpired = this.Factory.CreateRibbonLabel();
             this.correctall = this.Factory.CreateRibbonButton();
             this.correctselected = this.Factory.CreateRibbonButton();
+            this.license = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.AlGrammar.SuspendLayout();
             this.group1.SuspendLayout();
+            this.licensing.SuspendLayout();
+            this.LicenseDetails.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab1
@@ -55,6 +63,8 @@
             // AlGrammar
             // 
             this.AlGrammar.Groups.Add(this.group1);
+            this.AlGrammar.Groups.Add(this.licensing);
+            this.AlGrammar.Groups.Add(this.LicenseDetails);
             this.AlGrammar.Label = "Shkruaj Shqip";
             this.AlGrammar.Name = "AlGrammar";
             // 
@@ -62,20 +72,65 @@
             // 
             this.group1.Items.Add(this.correctall);
             this.group1.Items.Add(this.correctselected);
-            this.group1.Label = "group1";
+            this.group1.Label = "Korrektim";
             this.group1.Name = "group1";
+            // 
+            // licensing
+            // 
+            this.licensing.Items.Add(this.license);
+            this.licensing.Label = "Licensim";
+            this.licensing.Name = "licensing";
+            // 
+            // LicenseDetails
+            // 
+            this.LicenseDetails.Items.Add(this.expirationDateLable);
+            this.LicenseDetails.Items.Add(this.expirationDateValueLabel);
+            this.LicenseDetails.Items.Add(this.hasExpired);
+            this.LicenseDetails.Label = "Licensa";
+            this.LicenseDetails.Name = "LicenseDetails";
+            // 
+            // expirationDateLable
+            // 
+            this.expirationDateLable.Label = "Data Skadimit";
+            this.expirationDateLable.Name = "expirationDateLable";
+            // 
+            // expirationDateValueLabel
+            // 
+            this.expirationDateValueLabel.Label = "--/--/--";
+            this.expirationDateValueLabel.Name = "expirationDateValueLabel";
+            // 
+            // hasExpired
+            // 
+            this.hasExpired.Label = "Valid";
+            this.hasExpired.Name = "hasExpired";
+            this.hasExpired.Visible = false;
             // 
             // correctall
             // 
-            this.correctall.Label = "Korrigjo te gjithe dokumentin(Experimental)";
+            this.correctall.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.correctall.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
+            this.correctall.Label = "Korrigjo te gjithe";
             this.correctall.Name = "correctall";
+            this.correctall.ShowImage = true;
             this.correctall.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctall_Click);
             // 
             // correctselected
             // 
-            this.correctselected.Label = "Korrigjo pjesen e zgjedhur(Experimental)";
+            this.correctselected.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.correctselected.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
+            this.correctselected.Label = "Korrigjo zgjedhjen";
             this.correctselected.Name = "correctselected";
+            this.correctselected.ShowImage = true;
             this.correctselected.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctselected_Click);
+            // 
+            // license
+            // 
+            this.license.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.license.Image = global::Autocorrect.VSTO.Properties.Resources.icon_license_keys;
+            this.license.Label = "Rregjistohu";
+            this.license.Name = "license";
+            this.license.ShowImage = true;
+            this.license.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.license_Click);
             // 
             // Ribbon1
             // 
@@ -90,6 +145,10 @@
             this.AlGrammar.PerformLayout();
             this.group1.ResumeLayout(false);
             this.group1.PerformLayout();
+            this.licensing.ResumeLayout(false);
+            this.licensing.PerformLayout();
+            this.LicenseDetails.ResumeLayout(false);
+            this.LicenseDetails.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -101,6 +160,12 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton correctall;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton correctselected;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup licensing;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton license;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup LicenseDetails;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel expirationDateLable;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel expirationDateValueLabel;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel hasExpired;
     }
 
     partial class ThisRibbonCollection

@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autocorrect.VSTO", "Autocorrect.VSTO\Autocorrect.VSTO.csproj", "{0E463353-D74E-4312-A588-70A6C7596026}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autocorrect.Api", "Autocorrect.Api\Autocorrect.Api.csproj", "{325EF357-DB65-4352-9278-F54F66A9CE9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autocorrect.Api", "Autocorrect.Api\Autocorrect.Api.csproj", "{325EF357-DB65-4352-9278-F54F66A9CE9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autocorrect.Common", "Autocorrect.Common\Autocorrect.Common.csproj", "{810169A0-F887-4DB2-ADF3-E04A9DB09602}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autocorrect.Common", "Autocorrect.Common\Autocorrect.Common.csproj", "{810169A0-F887-4DB2-ADF3-E04A9DB09602}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autocorrect.Licensing", "Autocorrect.Licensing\Autocorrect.Licensing.csproj", "{0C9456C1-CD45-4A20-BD98-C8B3EAD604D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{810169A0-F887-4DB2-ADF3-E04A9DB09602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{810169A0-F887-4DB2-ADF3-E04A9DB09602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{810169A0-F887-4DB2-ADF3-E04A9DB09602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C9456C1-CD45-4A20-BD98-C8B3EAD604D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C9456C1-CD45-4A20-BD98-C8B3EAD604D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C9456C1-CD45-4A20-BD98-C8B3EAD604D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C9456C1-CD45-4A20-BD98-C8B3EAD604D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
