@@ -8,4 +8,8 @@
     <PackageReference Include="Portable.Licensing" Version="1.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Autocorrect.Common\Autocorrect.Common.csproj" />
+  </ItemGroup>
+
 </Project>

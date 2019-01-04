@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Threading;
 using Autocorrect.Common;
 using Autocorrect.Api.Services;
+using Autocorrect.Licensing;
 
 namespace Autocorrect.VSTO
 {
@@ -21,11 +22,14 @@ namespace Autocorrect.VSTO
         private SpellChecker _spellChecker;
         private void ThisAddIn_Startup(object sender, EventArgs e)
         {
-            
-            DataProvider.SyncData();
-            _helper.RegisterEvents();
-            _helper.OnKeyUp += OnKeyUp;
-            _spellChecker = new SpellChecker();
+            //only start our application if license is valid
+            if (LicenseManager.IsLicenseValid())
+            {
+                DataProvider.SyncData();
+                _helper.RegisterEvents();
+                _helper.OnKeyUp += OnKeyUp;
+                _spellChecker = new SpellChecker();
+            }
         }
 
         private void ThisAddIn_Shutdown(object sender, EventArgs e)

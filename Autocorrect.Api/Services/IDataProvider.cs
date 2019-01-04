@@ -1,4 +1,5 @@
 ﻿using Autocorrect.Api.Models;
+using Autocorrect.Common;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace Autocorrect.Api.Services
             {
                 JsonSerializer serializer = new JsonSerializer();
                 var result = (IEnumerable<WordDictionaryModel>)serializer.Deserialize(file, typeof(IEnumerable<WordDictionaryModel>));
+                if (result == null) return new Dictionary<string, string>();
                 return result.ToDictionary(x => x.WrongWord, y => y.RightWord, StringComparer.InvariantCultureIgnoreCase);
             }      
             
@@ -49,7 +51,7 @@ namespace Autocorrect.Api.Services
 
         public static async Task SyncData()
         {
-            var request = await _client.GetAsync("https://autocorrectapi.azurewebsites.net/api/SpecialWords/getallwords");
+            var request = await _client.GetAsync(AppConstants.SyncUri);
             var content = await request.Content.ReadAsStringAsync();
             await SetData(content);
             Data = GetData();

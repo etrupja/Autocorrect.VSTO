@@ -15,16 +15,15 @@ namespace Autocorrect.VSTO
     public partial class Ribbon1
     {
         private SpellChecker _spellChecker =new SpellChecker();
-        private LicenseManager _licenseManager = new LicenseManager();
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
-            var hasLicense = _licenseManager.HasLicense();
+            var hasLicense = LicenseManager.HasLicense();
             if (hasLicense)
             {
                 LicenseDetails.Visible = true;
-                expirationDateValueLabel.Label = _licenseManager.ExpirationDate()?.ToLongDateString();
-                if (!_licenseManager.IsLicenseValid())
+                expirationDateValueLabel.Label = LicenseManager.ExpirationDate()?.ToLongDateString();
+                if (!LicenseManager.IsLicenseValid())
                 {
                     hasExpired.ShowLabel = true;
                     hasExpired.Label = "License nuk eshte e sakte";
@@ -84,9 +83,30 @@ namespace Autocorrect.VSTO
                 var file = dialog.FileName;
                 if (File.Exists(file))
                 {
+                   
                     using (var fileStream = File.OpenRead(file))
                     {
-                       await _licenseManager.SetLicense(fileStream);
+                        var license = LicenseManager.ParseLicense(fileStream);
+                        var isValid = LicenseManager.IsValid(license);
+                        if (isValid)
+                        {
+                            var isOnlineValid = await LicenseManager.ValidateLicenseOnline(license.Id);
+                            if (isOnlineValid)
+                            {
+                                await LicenseManager.UpdateLicenseUtilizedCount(license.Id);
+                                await LicenseManager.SetLicense(fileStream);
+                                MessageBox.Show("Rregjistrimi u krye me sukses. Ju lutemi mbylleni applikacionin qe te shikoni ndryshimet", "Sukses");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Licensa ne fjale ka arritur maksimumin e perdorimit", "Licensa nuk eshte e vlefshme");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("License nuk eshte e vlefshme ose ka skaduar", "Licensa nuk eshte e vlefshme");
+                        }
+                      
                     }
                 }
             }
