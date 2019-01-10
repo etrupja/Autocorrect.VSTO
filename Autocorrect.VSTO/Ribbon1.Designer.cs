@@ -37,14 +37,14 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.AlGrammar = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
+            this.correctall = this.Factory.CreateRibbonButton();
+            this.correctselected = this.Factory.CreateRibbonButton();
             this.licensing = this.Factory.CreateRibbonGroup();
+            this.license = this.Factory.CreateRibbonButton();
             this.LicenseDetails = this.Factory.CreateRibbonGroup();
             this.expirationDateLable = this.Factory.CreateRibbonLabel();
             this.expirationDateValueLabel = this.Factory.CreateRibbonLabel();
             this.hasExpired = this.Factory.CreateRibbonLabel();
-            this.correctall = this.Factory.CreateRibbonButton();
-            this.correctselected = this.Factory.CreateRibbonButton();
-            this.license = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.AlGrammar.SuspendLayout();
             this.group1.SuspendLayout();
@@ -65,7 +65,7 @@
             this.AlGrammar.Groups.Add(this.group1);
             this.AlGrammar.Groups.Add(this.licensing);
             this.AlGrammar.Groups.Add(this.LicenseDetails);
-            this.AlGrammar.Label = "Shkruaj Shqip";
+            this.AlGrammar.Label = "TekstSakte";
             this.AlGrammar.Name = "AlGrammar";
             // 
             // group1
@@ -75,11 +75,38 @@
             this.group1.Label = "Korrektim";
             this.group1.Name = "group1";
             // 
+            // correctall
+            // 
+            this.correctall.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.correctall.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
+            this.correctall.Label = "Korrigjo te gjithe";
+            this.correctall.Name = "correctall";
+            this.correctall.ShowImage = true;
+            this.correctall.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctall_Click);
+            // 
+            // correctselected
+            // 
+            this.correctselected.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.correctselected.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
+            this.correctselected.Label = "Korrigjo zgjedhjen";
+            this.correctselected.Name = "correctselected";
+            this.correctselected.ShowImage = true;
+            this.correctselected.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctselected_Click);
+            // 
             // licensing
             // 
             this.licensing.Items.Add(this.license);
             this.licensing.Label = "Licensim";
             this.licensing.Name = "licensing";
+            // 
+            // license
+            // 
+            this.license.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.license.Image = global::Autocorrect.VSTO.Properties.Resources.icon_license_keys;
+            this.license.Label = "Rregjistohu";
+            this.license.Name = "license";
+            this.license.ShowImage = true;
+            this.license.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.license_Click);
             // 
             // LicenseDetails
             // 
@@ -104,33 +131,6 @@
             this.hasExpired.Label = "Valid";
             this.hasExpired.Name = "hasExpired";
             this.hasExpired.Visible = false;
-            // 
-            // correctall
-            // 
-            this.correctall.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.correctall.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
-            this.correctall.Label = "Korrigjo te gjithe";
-            this.correctall.Name = "correctall";
-            this.correctall.ShowImage = true;
-            this.correctall.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctall_Click);
-            // 
-            // correctselected
-            // 
-            this.correctselected.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.correctselected.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
-            this.correctselected.Label = "Korrigjo zgjedhjen";
-            this.correctselected.Name = "correctselected";
-            this.correctselected.ShowImage = true;
-            this.correctselected.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctselected_Click);
-            // 
-            // license
-            // 
-            this.license.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.license.Image = global::Autocorrect.VSTO.Properties.Resources.icon_license_keys;
-            this.license.Label = "Rregjistohu";
-            this.license.Name = "license";
-            this.license.ShowImage = true;
-            this.license.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.license_Click);
             // 
             // Ribbon1
             // 

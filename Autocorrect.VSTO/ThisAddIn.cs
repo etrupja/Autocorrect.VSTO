@@ -13,6 +13,9 @@ using System.Threading;
 using Autocorrect.Common;
 using Autocorrect.Api.Services;
 using Autocorrect.Licensing;
+using Autocorrect.VSTO.Properties;
+using Sentry;
+using System.Threading.Tasks;
 
 namespace Autocorrect.VSTO
 {
@@ -20,18 +23,50 @@ namespace Autocorrect.VSTO
     {
         private readonly AddinHelper _helper = new AddinHelper();
         private SpellChecker _spellChecker;
-        private void ThisAddIn_Startup(object sender, EventArgs e)
+        private  void ThisAddIn_Startup(object sender, EventArgs e)
         {
             //only start our application if license is valid
-            if (LicenseManager.IsLicenseValid())
-            {
-                DataProvider.SyncData();
-                _helper.RegisterEvents();
-                _helper.OnKeyUp += OnKeyUp;
-                _spellChecker = new SpellChecker();
-            }
-        }
+          
+                using (SentrySdk.Init("https://e6d85d0ca9e941bf9d6ca3a207ea31fb@sentry.io/1368700"))
+                {
 
+                try
+                {
+                    if (LicenseManager.IsLicenseValid())
+                    {
+                         SyncData();
+                        _helper.RegisterEvents();
+                        _helper.OnKeyUp += OnKeyUp;
+                        _spellChecker = new SpellChecker();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    SentrySdk.CaptureException(ex);
+                }
+                }
+           
+        }
+        public async Task SyncData()
+        {
+            try
+            {
+                DataProvider.SyncData().Wait();
+                Settings.Default.LastSync = DateTime.Now;
+                Settings.Default.Save();
+            }
+            catch (Exception ex)
+            {
+                if (Settings.Default.LastSync == DateTime.MinValue)
+                {
+                    MessageBox.Show("Nje problem ka ndodhur duke kontaktuar serverin. Sigurohuni qe keni nje lidhje interneti dhe mbyllenin dhe hapenin applikacionin perseri qe te marrim te dhenat e fundit", "Problem duke kontaktuar serverin");
+                    SentrySdk.CaptureException(ex);
+                }
+                   
+            }
+
+        }
         private void ThisAddIn_Shutdown(object sender, EventArgs e)
         {
             _helper.UnRegisterEvents();
@@ -41,7 +76,7 @@ namespace Autocorrect.VSTO
 
         private  void OnKeyUp(object sender,KeyEventArgs args)
         {
-            if (!new Keys[] { Keys.Space, Keys.OemPeriod }.Contains(args.KeyCode)) return;
+            if (!new Keys[] {Keys.Oemcomma, Keys.OemQuestion, Keys.OemSemicolon, Keys.OemQuotes,Keys.Oem7, Keys.Oem1, Keys.Space, Keys.OemPeriod }.Contains(args.KeyCode)) return;
             var doc = Globals.ThisAddIn.Application.ActiveDocument;
 
             Word.Selection sel = doc.Application.Selection;

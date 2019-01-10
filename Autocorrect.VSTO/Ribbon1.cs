@@ -6,8 +6,10 @@ using System.Text;
 using System.Windows.Forms;
 using Autocorrect.Api.Services;
 using Autocorrect.Licensing;
+using Autocorrect.VSTO.Properties;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Tools.Ribbon;
+using Sentry;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace Autocorrect.VSTO
@@ -96,6 +98,19 @@ namespace Autocorrect.VSTO
                                 await LicenseManager.UpdateLicenseUtilizedCount(license.Id);
                                 await LicenseManager.SetLicense(fileStream);
                                 MessageBox.Show("Rregjistrimi u krye me sukses. Ju lutemi mbylleni applikacionin qe te shikoni ndryshimet", "Sukses");
+
+                                try
+                                {
+                                    await DataProvider.SyncData();
+                                    Settings.Default.LastSync = DateTime.Now;
+                                    Settings.Default.Save();
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Nje problem ka ndodhur duke kontaktuar serverin. Sigurohuni qe keni nje lidhje interneti dhe mbyllenin dhe hapenin applikacionin perseri qe te marrim te dhenat e fundit", "Problem duke kontaktuar serverin");
+
+                                    SentrySdk.CaptureException(ex);
+                                } 
                             }
                             else
                             {
