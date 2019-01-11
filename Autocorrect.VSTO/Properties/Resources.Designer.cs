@@ -63,6 +63,16 @@ namespace Autocorrect.VSTO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap autocorrect {
+            get {
+                object obj = ResourceManager.GetObject("autocorrect", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap grammarfix {
             get {
                 object obj = ResourceManager.GetObject("grammarfix", resourceCulture);

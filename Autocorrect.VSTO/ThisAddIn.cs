@@ -16,6 +16,7 @@ using Autocorrect.Licensing;
 using Autocorrect.VSTO.Properties;
 using Sentry;
 using System.Threading.Tasks;
+using Autocorrect.VSTO.Settigs;
 
 namespace Autocorrect.VSTO
 {
@@ -76,6 +77,7 @@ namespace Autocorrect.VSTO
 
         private  void OnKeyUp(object sender,KeyEventArgs args)
         {
+            if (GlobalSettings.AutocorrectDisabled) return;
             if (!new Keys[] {Keys.Oemcomma, Keys.OemQuestion, Keys.OemSemicolon, Keys.OemQuotes,Keys.Oem7, Keys.Oem1, Keys.Space, Keys.OemPeriod }.Contains(args.KeyCode)) return;
             var doc = Globals.ThisAddIn.Application.ActiveDocument;
 

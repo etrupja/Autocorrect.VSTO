@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Autocorrect.Api.Services;
 using Autocorrect.Licensing;
 using Autocorrect.VSTO.Properties;
+using Autocorrect.VSTO.Settigs;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Tools.Ribbon;
 using Sentry;
@@ -29,18 +30,18 @@ namespace Autocorrect.VSTO
                 {
                     hasExpired.ShowLabel = true;
                     hasExpired.Label = "License nuk eshte e sakte";
-            
-                    licensing.Visible = true;
+
+                    license.Label = "Rregjistrohuni";
                 }
                 else
                 {
-                    licensing.Visible = false;
+                    license.Label = "Ndryhoni License";
                 }
             }
             else
             {
                 LicenseDetails.Visible = false;
-
+                license.Label = "Rregjistrohuni";
             }
         }
 
@@ -126,5 +127,12 @@ namespace Autocorrect.VSTO
                 }
             }
         }
+
+        private void autocorrectToggle_Click(object sender, RibbonControlEventArgs e)
+        {
+            GlobalSettings.AutocorrectDisabled = !autocorrectToggle.Checked;
+        }
+
+       
     }
 }

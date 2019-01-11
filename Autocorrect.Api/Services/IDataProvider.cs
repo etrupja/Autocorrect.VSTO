@@ -1,5 +1,6 @@
 ﻿using Autocorrect.Api.Models;
 using Autocorrect.Common;
+using Autocorrect.Licensing;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Autocorrect.Api.Services
 
         }
         public static string StorageFilePath{get{ return Path.Combine(StorageFolderPath,"Dictionary.json"); } }
-        public static string StorageFolderPath{get{ return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ShkruajShqip"); } }
+        public static string StorageFolderPath{get{ return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "ShkruajShqip"); } }
         public static Dictionary<string,string> GetData()
         {
 
@@ -51,7 +52,8 @@ namespace Autocorrect.Api.Services
 
         public static async Task SyncData()
         {
-            var request = await _client.GetAsync(AppConstants.SyncUri);
+            var licenseId = LicenseManager.License?.Id;
+            var request = await _client.GetAsync(AppConstants.SyncUri + licenseId?.ToString());
             var content = await request.Content.ReadAsStringAsync();
             await SetData(content);
             Data = GetData();

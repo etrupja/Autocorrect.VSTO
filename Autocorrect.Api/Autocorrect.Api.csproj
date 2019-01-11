@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Autocorrect.Common\Autocorrect.Common.csproj" />
+    <ProjectReference Include="..\Autocorrect.Licensing\Autocorrect.Licensing.csproj" />
   </ItemGroup>
 
 </Project>

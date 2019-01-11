@@ -39,6 +39,8 @@
             this.group1 = this.Factory.CreateRibbonGroup();
             this.correctall = this.Factory.CreateRibbonButton();
             this.correctselected = this.Factory.CreateRibbonButton();
+            this.ActionGroup = this.Factory.CreateRibbonGroup();
+            this.autocorrectToggle = this.Factory.CreateRibbonToggleButton();
             this.licensing = this.Factory.CreateRibbonGroup();
             this.license = this.Factory.CreateRibbonButton();
             this.LicenseDetails = this.Factory.CreateRibbonGroup();
@@ -48,6 +50,7 @@
             this.tab1.SuspendLayout();
             this.AlGrammar.SuspendLayout();
             this.group1.SuspendLayout();
+            this.ActionGroup.SuspendLayout();
             this.licensing.SuspendLayout();
             this.LicenseDetails.SuspendLayout();
             this.SuspendLayout();
@@ -63,6 +66,7 @@
             // AlGrammar
             // 
             this.AlGrammar.Groups.Add(this.group1);
+            this.AlGrammar.Groups.Add(this.ActionGroup);
             this.AlGrammar.Groups.Add(this.licensing);
             this.AlGrammar.Groups.Add(this.LicenseDetails);
             this.AlGrammar.Label = "TekstSakte";
@@ -92,6 +96,22 @@
             this.correctselected.Name = "correctselected";
             this.correctselected.ShowImage = true;
             this.correctselected.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctselected_Click);
+            // 
+            // ActionGroup
+            // 
+            this.ActionGroup.Items.Add(this.autocorrectToggle);
+            this.ActionGroup.Name = "ActionGroup";
+            // 
+            // autocorrectToggle
+            // 
+            this.autocorrectToggle.Checked = true;
+            this.autocorrectToggle.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.autocorrectToggle.Image = global::Autocorrect.VSTO.Properties.Resources.autocorrect;
+            this.autocorrectToggle.Label = "Korrigjo Automatikish";
+            this.autocorrectToggle.Name = "autocorrectToggle";
+            this.autocorrectToggle.ShowImage = true;
+            this.autocorrectToggle.SuperTip = "Kur eshte aktivizuar korrigjon tekstin nderkohe qe po shkruhet";
+            this.autocorrectToggle.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.autocorrectToggle_Click);
             // 
             // licensing
             // 
@@ -145,6 +165,8 @@
             this.AlGrammar.PerformLayout();
             this.group1.ResumeLayout(false);
             this.group1.PerformLayout();
+            this.ActionGroup.ResumeLayout(false);
+            this.ActionGroup.PerformLayout();
             this.licensing.ResumeLayout(false);
             this.licensing.PerformLayout();
             this.LicenseDetails.ResumeLayout(false);
@@ -166,6 +188,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel expirationDateLable;
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel expirationDateValueLabel;
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel hasExpired;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup ActionGroup;
+        internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton autocorrectToggle;
     }
 
     partial class ThisRibbonCollection
