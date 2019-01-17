@@ -18,12 +18,7 @@ namespace Autocorrect.Api.Services
         {
             if (string.IsNullOrEmpty(input)) return string.Empty;
 
-            if (DataProvider.Data.ContainsKey(input))
-            {
-                var correctValue = DataProvider.Data[input];
-                return ReplaceAlCharacters(input, correctValue);
-            }
-            return string.Empty;
+            return DataProvider.Data.ContainsKey(input) ? DataProvider.Data[input] : string.Empty;
         }
 
         /// <summary>

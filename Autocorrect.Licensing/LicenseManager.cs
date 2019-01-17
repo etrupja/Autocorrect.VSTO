@@ -34,7 +34,15 @@ namespace Autocorrect.Licensing
             if (!File.Exists(LicenseFilePath)) return null;
             using (StreamReader file = new StreamReader(LicenseFilePath))
             {
-                return License.Load(file);
+                try
+                {
+                    return License.Load(file);
+                }
+                catch
+                {
+
+                    return null;
+                }
             }
         }
         public static bool IsLicenseValid()

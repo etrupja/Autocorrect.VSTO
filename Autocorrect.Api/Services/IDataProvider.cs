@@ -54,9 +54,18 @@ namespace Autocorrect.Api.Services
         {
             var licenseId = LicenseManager.License?.Id;
             var request = await _client.GetAsync(AppConstants.SyncUri + licenseId?.ToString());
-            var content = await request.Content.ReadAsStringAsync();
-            await SetData(content);
-            Data = GetData();
+            if (request.IsSuccessStatusCode)
+            {
+                var content = await request.Content.ReadAsStringAsync();
+                await SetData(content);
+                Data = GetData();
+            }
+            else
+            {
+                // check status codes here 
+            }
+
+           
         }
         public static void CreateDictionaryIfNotExists()
         {
