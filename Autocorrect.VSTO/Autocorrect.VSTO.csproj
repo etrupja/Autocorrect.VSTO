@@ -33,7 +33,7 @@
     <PublishUrl>publish\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.2.20</ApplicationVersion>
+    <ApplicationVersion>1.0.2.22</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -221,7 +221,6 @@
     <None Include="app.config" />
     <None Include="Autocorrect.VSTO_1_TemporaryKey.pfx" />
     <None Include="Autocorrect.VSTO_TemporaryKey.pfx" />
-    <None Include="ervistrupja%40outlook.com.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

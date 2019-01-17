@@ -62,7 +62,10 @@ namespace Autocorrect.Api.Services
             }
             else
             {
-                // check status codes here 
+               if(request.StatusCode== System.Net.HttpStatusCode.Unauthorized)
+                {
+                    LicenseManager.DeleteLicense();
+                }
             }
 
            

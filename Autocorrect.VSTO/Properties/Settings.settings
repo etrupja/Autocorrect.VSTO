@@ -5,5 +5,8 @@
     <Setting Name="LastSync" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">1753-01-01</Value>
     </Setting>
+    <Setting Name="LicenseNotValidOnApi" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

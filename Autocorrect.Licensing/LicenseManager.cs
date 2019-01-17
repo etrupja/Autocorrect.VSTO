@@ -15,7 +15,7 @@ namespace Autocorrect.Licensing
         public const string LicensePublicKey = "MIIBKjCB4wYHKoZIzj0CATCB1wIBATAsBgcqhkjOPQEBAiEA/////wAAAAEAAAAAAAAAAAAAAAD///////////////8wWwQg/////wAAAAEAAAAAAAAAAAAAAAD///////////////wEIFrGNdiqOpPns+u9VXaYhrxlHQawzFOw9jvOPD4n0mBLAxUAxJ02CIbnBJNqZnjhE50mt4GffpAEIQNrF9Hy4SxCR/i85uVjpEDydwN9gS3rM6D0oTlF2JjClgIhAP////8AAAAA//////////+85vqtpxeehPO5ysL8YyVRAgEBA0IABPCLaFbzw/MJhWd/DzjPNKSgd9/fz6Jo0oSJHt3PTNNGLzzppCZwuJ8Mwvkw0ARHYgCfzIxiXKfSedSDyRBO5lo=";
 
         static HttpClient _client;
-        
+
         static LicenseManager()
         {
             if (!Directory.Exists(LicenseFolderPath)) Directory.CreateDirectory(LicenseFolderPath);
@@ -24,6 +24,7 @@ namespace Autocorrect.Licensing
             _client = new HttpClient();
             License = GetLicense();
         }
+       
         public static License License { get; private set; }
         private static string LicenseFilePath { get { return Path.Combine(LicenseFolderPath, "License.xml"); } }
         private static string LicenseFolderPath { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "ShkruajShqip"); } }
@@ -78,10 +79,15 @@ namespace Autocorrect.Licensing
         public static async Task SetLicense(Stream data)
         {
             data.Position = 0;
+            if (File.Exists(LicenseFilePath)) File.Delete(LicenseFilePath);
             var fileStream = new FileStream(LicenseFilePath, FileMode.OpenOrCreate, FileAccess.Write);
             await data.CopyToAsync(fileStream);
             fileStream.Dispose();
             License = GetLicense();
+        }
+        public static  void DeleteLicense()
+        {
+            if (File.Exists(LicenseFilePath)) File.Delete(LicenseFilePath);
         }
         public static bool HasLicense()
         {
