@@ -71,27 +71,84 @@ namespace Autocorrect.VSTO
             throw new NotImplementedException();
         }
 
+
+        private void Add()
+        {
+            RemoveItem();
+            return;
+            Word.Application applicationObject = Globals.ThisAddIn.Application as Word.Application;
+
+            CommandBarPopup teksSakteMenu = applicationObject.CommandBars.FindControl(MsoControlType.msoControlPopup, missing, "tekssaktemenu", missing)  as CommandBarPopup;
+            if (teksSakteMenu != null) return;
+            else
+            {
+                CommandBar popupCommandBar = applicationObject.CommandBars["Text"];
+                teksSakteMenu = (CommandBarPopup)popupCommandBar.Controls.Add(MsoControlType.msoControlPopup, missing, missing, missing, true);
+                teksSakteMenu.Caption = "TeksSakte";
+                teksSakteMenu.Tag = "tekssaktemenu";
+            }
+          
+
+        //    bool isFound = false;
+        //    foreach (object _object in popupCommandBar.Controls)
+        //    {
+        //        CommandBarButton _commandBarButton = _object as CommandBarButton;
+        //        if (_commandBarButton == null) continue;
+        //        if (_commandBarButton.Tag.Equals("TekstSakteMenu"))
+        //        {
+        //            isFound = true;
+        //            _commandBarButton.Click += eventHandler;
+        //            break;
+        //        }
+        //    }
+
+        //    if (!isFound)
+        //    {
+        //        commandBarButton = (CommandBarButton)popupCommandBar.Controls.Add
+        //(MsoControlType.msoControlButton, missing, missing, missing, true);
+        //        System.Diagnostics.Debug.WriteLine("Created new button, adding handler");
+        //        commandBarButton.Click += eventHandler;
+        //        commandBarButton.Caption = "Hello !!!";
+        //        commandBarButton.FaceId = 54854;
+        //        commandBarButton.Tag = "TekstSakteMenu";
+        //        commandBarButton.BeginGroup = true;
+        //    }
+
+          
+            Office.CommandBarButton sugjeroMenu = (Office.CommandBarButton)teksSakteMenu.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
+            sugjeroMenu.Caption = "Sugjero";
+            sugjeroMenu.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(suggest_click);
+            sugjeroMenu.Tag = "sugjeromenu";
+        }
+
+
         private void AddItem()
         {
             Word.Application applicationObject =
         Globals.ThisAddIn.Application as Word.Application;
             CommandBarButton commandBarButton =
         applicationObject.CommandBars.FindControl
-        (MsoControlType.msoControlButton, missing, "HELLO_TAG", missing)
+        (MsoControlType.msoControlButton, missing, "HELLO_TAG1", missing)
         as CommandBarButton;
+
+            foreach (CommandBar item in applicationObject.CommandBars)
+            {
+                Debug.WriteLine(item.Name);
+            }
+
             if (commandBarButton != null)
             {
                 System.Diagnostics.Debug.WriteLine("Found button, attaching handler");
                 commandBarButton.Click += eventHandler;
                 return;
             }
-            CommandBar popupCommandBar = applicationObject.CommandBars["Text"];
+            CommandBar popupCommandBar = applicationObject.CommandBars["Spelling"];
             bool isFound = false;
             foreach (object _object in popupCommandBar.Controls)
             {
                 CommandBarButton _commandBarButton = _object as CommandBarButton;
                 if (_commandBarButton == null) continue;
-                if (_commandBarButton.Tag.Equals("HELLO_TAG"))
+                if (_commandBarButton.Tag.Equals("HELLO_TAG1"))
                 {
                     isFound = true;
                     System.Diagnostics.Debug.WriteLine
@@ -107,18 +164,20 @@ namespace Autocorrect.VSTO
                 System.Diagnostics.Debug.WriteLine("Created new button, adding handler");
                 commandBarButton.Click += eventHandler;
                 commandBarButton.Caption = "Hello !!!";
-                commandBarButton.FaceId = 356;
-                commandBarButton.Tag = "HELLO_TAG";
+                commandBarButton.FaceId = 353;
+                commandBarButton.Tag = "HELLO_TAG1";
                 commandBarButton.BeginGroup = true;
             }
-            Office.CommandBarPopup cpp = (CommandBarPopup)popupCommandBar.Controls.Add(MsoControlType.msoControlPopup, missing, missing, missing, true);
+            Office.CommandBarPopup cpp = (CommandBarPopup)popupCommandBar.Controls.Add(MsoControlType.msoControlButtonPopup, missing, missing, missing, true);
             cpp.Caption = "SubMenu";
-           //= (Office.CommandBarPopup)ContextMenu.Controls.Add(Office.MsoControlType.msoControlPopup, missing, missing, missing, missing);
-           
+            cpp.Tag = "submenu";
+            //= (Office.CommandBarPopup)ContextMenu.Controls.Add(Office.MsoControlType.msoControlPopup, missing, missing, missing, missing);
 
-            Office.CommandBarButton cbHello3 = (Office.CommandBarButton)cpp.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
+
+            Office.CommandBarButton cbHello3 = (Office.CommandBarButton)(cpp).Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
             cbHello3.Caption = "Hello3";
-            cbHello3.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+            cbHello3.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(suggest_click);
+            cbHello3.FaceId = 353;
         }
 
         private void RemoveItem()
@@ -126,11 +185,23 @@ namespace Autocorrect.VSTO
             Word.Application applicationObject =
         Globals.ThisAddIn.Application as Word.Application;
             CommandBar popupCommandBar = applicationObject.CommandBars["Text"];
+            popupCommandBar.Reset();
             foreach (object _object in popupCommandBar.Controls)
             {
                 CommandBarButton commandBarButton = _object as CommandBarButton;
                 if (commandBarButton == null) continue;
-                if (commandBarButton.Tag.Equals("HELLO_TAG"))
+                if (commandBarButton.Caption.Equals("TeksSakte"))
+                {
+                    popupCommandBar.Reset();
+                }
+            }
+            popupCommandBar = applicationObject.CommandBars["Spelling"];
+            popupCommandBar.Reset();
+            foreach (object _object in popupCommandBar.Controls)
+            {
+                CommandBarButton commandBarButton = _object as CommandBarButton;
+                if (commandBarButton == null) continue;
+                if (commandBarButton.Caption.Equals("TeksSakte"))
                 {
                     popupCommandBar.Reset();
                 }
@@ -144,30 +215,29 @@ namespace Autocorrect.VSTO
             {
                 Office.CommandBarButton cbHello1 = (Office.CommandBarButton)ContextMenu.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
                 cbHello1.Caption = "Hello1";
-                cbHello1.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+                cbHello1.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(suggest_click);
 
                 Office.CommandBarButton cbHello2 = (Office.CommandBarButton)ContextMenu.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
                 cbHello2.Caption = "Hello2";
-                cbHello2.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+                cbHello2.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(suggest_click);
 
                 Office.CommandBarPopup cpp = (Office.CommandBarPopup)ContextMenu.Controls.Add(Office.MsoControlType.msoControlPopup, missing, missing, missing, missing);
                 cpp.Caption = "SubMenu";
 
                 Office.CommandBarButton cbHello3 = (Office.CommandBarButton)cpp.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
                 cbHello3.Caption = "Hello3";
-                cbHello3.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+                cbHello3.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(suggest_click);
 
                 Office.CommandBarButton cbHello4 = (Office.CommandBarButton)cpp.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
                 cbHello4.Caption = "Hello4";
-                cbHello4.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+                cbHello4.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(suggest_click);
 
                 ContextMenu.ShowPopup(missing, missing);
             }
         }
 
-        private void cb_Click(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void suggest_click(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            throw new NotImplementedException();
         }
 
         //private void AddExampleMenuItem()
@@ -208,7 +278,8 @@ namespace Autocorrect.VSTO
         {
             try
             {
-                AddItem();
+                Add();
+                Add();
             }
             catch (Exception exception)
             {
