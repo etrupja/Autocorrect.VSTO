@@ -1,13 +1,13 @@
 ﻿namespace Autocorrect.VSTO
 {
-    partial class Ribbon1 : Microsoft.Office.Tools.Ribbon.RibbonBase
+    partial class TeksStakteMainRibbon : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        public Ribbon1()
+        public TeksStakteMainRibbon()
             : base(Globals.Factory.GetRibbonFactory())
         {
             InitializeComponent();
@@ -152,9 +152,9 @@
             this.hasExpired.Name = "hasExpired";
             this.hasExpired.Visible = false;
             // 
-            // Ribbon1
+            // TeksStakteMainRibbon
             // 
-            this.Name = "Ribbon1";
+            this.Name = "TeksStakteMainRibbon";
             this.RibbonType = "Microsoft.Word.Document";
             this.Tabs.Add(this.tab1);
             this.Tabs.Add(this.AlGrammar);
@@ -195,9 +195,9 @@
 
     partial class ThisRibbonCollection
     {
-        internal Ribbon1 Ribbon1
+        internal TeksStakteMainRibbon Ribbon1
         {
-            get { return this.GetRibbon<Ribbon1>(); }
+            get { return this.GetRibbon<TeksStakteMainRibbon>(); }
         }
     }
 }

@@ -17,6 +17,7 @@ using Autocorrect.VSTO.Properties;
 using Sentry;
 using System.Threading.Tasks;
 using Autocorrect.VSTO.Settigs;
+using Microsoft.Office.Core;
 
 namespace Autocorrect.VSTO
 {
@@ -24,7 +25,9 @@ namespace Autocorrect.VSTO
     {
         private readonly AddinHelper _helper = new AddinHelper();
         private SpellChecker _spellChecker;
-        private  void ThisAddIn_Startup(object sender, EventArgs e)
+        _CommandBarButtonEvents_ClickEventHandler eventHandler;
+
+        private void ThisAddIn_Startup(object sender, EventArgs e)
         {
             //only start our application if license is valid
           
@@ -47,8 +50,135 @@ namespace Autocorrect.VSTO
                     SentrySdk.CaptureException(ex);
                 }
                 }
-           
+
+            try
+            {
+                eventHandler = new _CommandBarButtonEvents_ClickEventHandler(MyButton_Click);
+                Word.Application applicationObject =
+            Globals.ThisAddIn.Application as Word.Application;
+                applicationObject.WindowBeforeRightClick +=
+        new Microsoft.Office.Interop.Word.ApplicationEvents4_WindowBeforeRightClickEventHandler(App_WindowBeforeRightClick);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Error: " + exception.Message);
+            }
+
         }
+
+        private void MyButton_Click(CommandBarButton Ctrl, ref bool CancelDefault)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddItem()
+        {
+            Word.Application applicationObject =
+        Globals.ThisAddIn.Application as Word.Application;
+            CommandBarButton commandBarButton =
+        applicationObject.CommandBars.FindControl
+        (MsoControlType.msoControlButton, missing, "HELLO_TAG", missing)
+        as CommandBarButton;
+            if (commandBarButton != null)
+            {
+                System.Diagnostics.Debug.WriteLine("Found button, attaching handler");
+                commandBarButton.Click += eventHandler;
+                return;
+            }
+            CommandBar popupCommandBar = applicationObject.CommandBars["Text"];
+            bool isFound = false;
+            foreach (object _object in popupCommandBar.Controls)
+            {
+                CommandBarButton _commandBarButton = _object as CommandBarButton;
+                if (_commandBarButton == null) continue;
+                if (_commandBarButton.Tag.Equals("HELLO_TAG"))
+                {
+                    isFound = true;
+                    System.Diagnostics.Debug.WriteLine
+            ("Found existing button. Will attach a handler.");
+                    _commandBarButton.Click += eventHandler;
+                    break;
+                }
+            }
+            if (!isFound)
+            {
+                commandBarButton = (CommandBarButton)popupCommandBar.Controls.Add
+        (MsoControlType.msoControlButton, missing, missing, missing, true);
+                System.Diagnostics.Debug.WriteLine("Created new button, adding handler");
+                commandBarButton.Click += eventHandler;
+                commandBarButton.Caption = "Hello !!!";
+                commandBarButton.FaceId = 356;
+                commandBarButton.Tag = "HELLO_TAG";
+                commandBarButton.BeginGroup = true;
+            }
+            Office.CommandBarPopup cpp = (CommandBarPopup)popupCommandBar.Controls.Add(MsoControlType.msoControlPopup, missing, missing, missing, true);
+            cpp.Caption = "SubMenu";
+           //= (Office.CommandBarPopup)ContextMenu.Controls.Add(Office.MsoControlType.msoControlPopup, missing, missing, missing, missing);
+           
+
+            Office.CommandBarButton cbHello3 = (Office.CommandBarButton)cpp.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
+            cbHello3.Caption = "Hello3";
+            cbHello3.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+        }
+
+        private void RemoveItem()
+        {
+            Word.Application applicationObject =
+        Globals.ThisAddIn.Application as Word.Application;
+            CommandBar popupCommandBar = applicationObject.CommandBars["Text"];
+            foreach (object _object in popupCommandBar.Controls)
+            {
+                CommandBarButton commandBarButton = _object as CommandBarButton;
+                if (commandBarButton == null) continue;
+                if (commandBarButton.Tag.Equals("HELLO_TAG"))
+                {
+                    popupCommandBar.Reset();
+                }
+            }
+        }
+        private void AddContextMenu()
+        {
+            Office.CommandBar ContextMenu = this.Application.CommandBars.Add("ContextMenu", Office.MsoBarPosition.msoBarPopup, missing, true);
+
+            if (ContextMenu != null)
+            {
+                Office.CommandBarButton cbHello1 = (Office.CommandBarButton)ContextMenu.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
+                cbHello1.Caption = "Hello1";
+                cbHello1.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+
+                Office.CommandBarButton cbHello2 = (Office.CommandBarButton)ContextMenu.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
+                cbHello2.Caption = "Hello2";
+                cbHello2.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+
+                Office.CommandBarPopup cpp = (Office.CommandBarPopup)ContextMenu.Controls.Add(Office.MsoControlType.msoControlPopup, missing, missing, missing, missing);
+                cpp.Caption = "SubMenu";
+
+                Office.CommandBarButton cbHello3 = (Office.CommandBarButton)cpp.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
+                cbHello3.Caption = "Hello3";
+                cbHello3.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+
+                Office.CommandBarButton cbHello4 = (Office.CommandBarButton)cpp.Controls.Add(Office.MsoControlType.msoControlButton, missing, missing, missing, missing);
+                cbHello4.Caption = "Hello4";
+                cbHello4.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(cb_Click);
+
+                ContextMenu.ShowPopup(missing, missing);
+            }
+        }
+
+        private void cb_Click(CommandBarButton Ctrl, ref bool CancelDefault)
+        {
+            throw new NotImplementedException();
+        }
+
+        //private void AddExampleMenuItem()
+        //{
+        //    Office.MsoControlType menuItem = Office.MsoControlType.msoControlButton;
+        //    Office.CommandBarButton exampleMenuItem = (Office.CommandBarButton)GetCellContextMenu().Controls.Add(menuItem, missing, missing, 1, true);
+
+        //    exampleMenuItem.Style = Office.MsoButtonStyle.msoButtonCaption;
+        //    exampleMenuItem.Caption = "Example Menu Item";
+        //    exampleMenuItem.Click += new Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler(exampleMenuItemClick);
+        //}
         public async Task SyncData()
         {
             try
@@ -71,9 +201,20 @@ namespace Autocorrect.VSTO
         private void ThisAddIn_Shutdown(object sender, EventArgs e)
         {
             _helper.UnRegisterEvents();
+            Application.WindowBeforeRightClick -=   new Microsoft.Office.Interop.Word.ApplicationEvents4_WindowBeforeRightClickEventHandler(App_WindowBeforeRightClick);
         }
 
-       
+        private void App_WindowBeforeRightClick(Word.Selection Sel, ref bool Cancel)
+        {
+            try
+            {
+                AddItem();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Error: " + exception.Message);
+            }
+        }
 
         private  void OnKeyUp(object sender,KeyEventArgs args)
         {

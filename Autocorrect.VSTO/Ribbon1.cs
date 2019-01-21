@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Autocorrect.VSTO
 {
-    public partial class Ribbon1
+    public partial class TeksStakteMainRibbon
     {
         private SpellChecker _spellChecker = new SpellChecker();
 
