@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,59 @@ namespace Autocorrect.Api.Services
         {
             if (string.IsNullOrEmpty(input)) return string.Empty;
 
-            return DataProvider.Data.ContainsKey(input) ? DataProvider.Data[input] : string.Empty;
+            return ProcessString(input);
+        }
+
+        public string ProcessString(string input)
+        {
+           if(input.Contains("’") && !input.EndsWith("’"))
+            {
+                var parts = input.Split('’');
+                if (parts.Count() == 2)
+                {
+                    return HandleApostrophe(parts[0][0], parts[1]);
+                }
+            }
+
+            return DataProvider.Data.ContainsKey(input) ? ReplaceKeepCase(input, DataProvider.Data[input]) : string.Empty;
+        }
+        public string HandleApostrophe(char part1, string part2)
+        {
+            var part2Value = CheckSpellInternal(part2);
+            part2Value= part2Value.Insert(0, "'");
+            part2Value = part2Value.Insert(0, HandleApostrophePrepender(part1).ToString());
+            return part2Value;
+        }
+        public string CheckSpellInternal(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return string.Empty;
+
+            return DataProvider.Data.ContainsKey(input) ? ReplaceKeepCase(input, DataProvider.Data[input]) : input;
+        }
+
+        public char HandleApostrophePrepender(char value)
+        {
+            char result;
+            var isUpperCase = char.IsUpper(value);
+            char.ToLowerInvariant(value);
+            switch (value)
+            {
+                case 'c':
+                    result= 'ç';
+                    break;
+                default:
+                    result = value;
+                    break;
+                 
+            }
+            return isUpperCase ? char.ToUpperInvariant(result) : char.ToLowerInvariant(result);
+        }
+        public string ReplaceKeepCase(string input, string output)
+        {
+            var outputArray = output.ToCharArray();
+            var isUpperCase= char.IsUpper(input[0]);
+            if (isUpperCase) outputArray[0] = char.ToUpperInvariant(output[0]);
+            return string.Join("", outputArray);   
         }
 
         /// <summary>

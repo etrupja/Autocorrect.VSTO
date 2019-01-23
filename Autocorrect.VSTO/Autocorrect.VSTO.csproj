@@ -219,7 +219,6 @@
       <DependentUpon>Ribbon1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Autocorrect.VSTO_1_TemporaryKey.pfx" />
     <None Include="Autocorrect.VSTO_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -286,10 +285,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Autocorrect.VSTO_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Autocorrect.VSTO_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>61CFE092A4A13AF3BAD0469E8466EFBC4CDD4E9E</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>CA387EFEDCBA3096F87D2161A9E3FC532FA1C90A</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Content\Images\tesksaktelogo.ico</ApplicationIcon>
