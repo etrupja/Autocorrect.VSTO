@@ -40,7 +40,7 @@ namespace Autocorrect.VSTO
                 LicenseDetails.Visible = false;
                 license.Label = "Rregjistrohuni";
             }
-
+            GlobalSettings.AutocorrectDisabled = !Properties.Settings.Default.Autcorrect;
         }
 
         private void Ribbon1_Close(object sender, EventArgs e)
@@ -137,7 +137,32 @@ namespace Autocorrect.VSTO
         private void autocorrectToggle_Click(object sender, RibbonControlEventArgs e)
         {
             GlobalSettings.AutocorrectDisabled = !autocorrectToggle.Checked;
+            Properties.Settings.Default.Autcorrect = autocorrectToggle.Checked;
+            Properties.Settings.Default.Save();
         }
 
+       
+        public async void SyncData()
+        {
+            try
+            {
+               await  DataProvider.SyncData();
+                Settings.Default.LastSync = DateTime.Now;
+                Settings.Default.Save();
+                MessageBox.Show("Perditesimi u krye me sukses", "Sukses");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Nje problem ka ndodhur duke kontaktuar serverin. Sigurohuni qe keni nje lidhje interneti", "Problem duke kontaktuar serverin");
+                SentrySdk.CaptureException(ex);
+            }
+
+        }
+
+        private void perditesoButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            SyncData();
+        }
     }
 }

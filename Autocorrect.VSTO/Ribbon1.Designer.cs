@@ -37,16 +37,17 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.AlGrammar = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.correctall = this.Factory.CreateRibbonButton();
-            this.correctselected = this.Factory.CreateRibbonButton();
             this.ActionGroup = this.Factory.CreateRibbonGroup();
-            this.autocorrectToggle = this.Factory.CreateRibbonToggleButton();
             this.licensing = this.Factory.CreateRibbonGroup();
-            this.license = this.Factory.CreateRibbonButton();
             this.LicenseDetails = this.Factory.CreateRibbonGroup();
             this.expirationDateLable = this.Factory.CreateRibbonLabel();
             this.expirationDateValueLabel = this.Factory.CreateRibbonLabel();
             this.hasExpired = this.Factory.CreateRibbonLabel();
+            this.correctall = this.Factory.CreateRibbonButton();
+            this.correctselected = this.Factory.CreateRibbonButton();
+            this.autocorrectToggle = this.Factory.CreateRibbonToggleButton();
+            this.license = this.Factory.CreateRibbonButton();
+            this.perditesoButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.AlGrammar.SuspendLayout();
             this.group1.SuspendLayout();
@@ -74,59 +75,23 @@
             // 
             // group1
             // 
+            this.group1.Items.Add(this.autocorrectToggle);
             this.group1.Items.Add(this.correctall);
             this.group1.Items.Add(this.correctselected);
             this.group1.Label = "Korrektim";
             this.group1.Name = "group1";
             // 
-            // correctall
-            // 
-            this.correctall.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.correctall.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
-            this.correctall.Label = "Korrigjo te gjithe";
-            this.correctall.Name = "correctall";
-            this.correctall.ShowImage = true;
-            this.correctall.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctall_Click);
-            // 
-            // correctselected
-            // 
-            this.correctselected.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.correctselected.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
-            this.correctselected.Label = "Korrigjo zgjedhjen";
-            this.correctselected.Name = "correctselected";
-            this.correctselected.ShowImage = true;
-            this.correctselected.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctselected_Click);
-            // 
             // ActionGroup
             // 
-            this.ActionGroup.Items.Add(this.autocorrectToggle);
+            this.ActionGroup.Items.Add(this.perditesoButton);
+            this.ActionGroup.Label = "Fjalori";
             this.ActionGroup.Name = "ActionGroup";
-            // 
-            // autocorrectToggle
-            // 
-            this.autocorrectToggle.Checked = true;
-            this.autocorrectToggle.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.autocorrectToggle.Image = global::Autocorrect.VSTO.Properties.Resources.autocorrect;
-            this.autocorrectToggle.Label = "Korrigjo Automatikish";
-            this.autocorrectToggle.Name = "autocorrectToggle";
-            this.autocorrectToggle.ShowImage = true;
-            this.autocorrectToggle.SuperTip = "Kur eshte aktivizuar korrigjon tekstin nderkohe qe po shkruhet";
-            this.autocorrectToggle.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.autocorrectToggle_Click);
             // 
             // licensing
             // 
             this.licensing.Items.Add(this.license);
             this.licensing.Label = "Licensim";
             this.licensing.Name = "licensing";
-            // 
-            // license
-            // 
-            this.license.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.license.Image = global::Autocorrect.VSTO.Properties.Resources.icon_license_keys;
-            this.license.Label = "Rregjistohu";
-            this.license.Name = "license";
-            this.license.ShowImage = true;
-            this.license.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.license_Click);
             // 
             // LicenseDetails
             // 
@@ -151,6 +116,53 @@
             this.hasExpired.Label = "Valid";
             this.hasExpired.Name = "hasExpired";
             this.hasExpired.Visible = false;
+            // 
+            // correctall
+            // 
+            this.correctall.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.correctall.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
+            this.correctall.Label = "Korrigjo te gjithe";
+            this.correctall.Name = "correctall";
+            this.correctall.ShowImage = true;
+            this.correctall.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctall_Click);
+            // 
+            // correctselected
+            // 
+            this.correctselected.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.correctselected.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
+            this.correctselected.Label = "Korrigjo zgjedhjen";
+            this.correctselected.Name = "correctselected";
+            this.correctselected.ShowImage = true;
+            this.correctselected.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctselected_Click);
+            // 
+            // autocorrectToggle
+            // 
+            this.autocorrectToggle.Checked = true;
+            this.autocorrectToggle.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.autocorrectToggle.Image = global::Autocorrect.VSTO.Properties.Resources.autocorrect;
+            this.autocorrectToggle.Label = "Korrigjo Automatikish";
+            this.autocorrectToggle.Name = "autocorrectToggle";
+            this.autocorrectToggle.ShowImage = true;
+            this.autocorrectToggle.SuperTip = "Kur eshte aktivizuar korrigjon tekstin nderkohe qe po shkruhet";
+            this.autocorrectToggle.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.autocorrectToggle_Click);
+            // 
+            // license
+            // 
+            this.license.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.license.Image = global::Autocorrect.VSTO.Properties.Resources.icon_license_keys;
+            this.license.Label = "Rregjistohu";
+            this.license.Name = "license";
+            this.license.ShowImage = true;
+            this.license.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.license_Click);
+            // 
+            // perditesoButton
+            // 
+            this.perditesoButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.perditesoButton.Image = global::Autocorrect.VSTO.Properties.Resources.sync;
+            this.perditesoButton.Label = "Perditeso Fjalorin";
+            this.perditesoButton.Name = "perditesoButton";
+            this.perditesoButton.ShowImage = true;
+            this.perditesoButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.perditesoButton_Click);
             // 
             // Ribbon1
             // 
@@ -191,6 +203,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel hasExpired;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup ActionGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton autocorrectToggle;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton perditesoButton;
     }
 
     partial class ThisRibbonCollection

@@ -46,5 +46,17 @@ namespace Autocorrect.VSTO.Properties {
                 this["LicenseNotValidOnApi"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Autcorrect {
+            get {
+                return ((bool)(this["Autcorrect"]));
+            }
+            set {
+                this["Autcorrect"] = value;
+            }
+        }
     }
 }

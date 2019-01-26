@@ -42,7 +42,7 @@ namespace Autocorrect.Common
                 KeyEventArgs args = new KeyEventArgs(key);
                 bool isKeyDown = ((ulong)lParam & 0x40000000) == 0;
                 //bool isSpaceKey = args.KeyCode == Keys.Space;
-                if (isKeyDown) OnKeyDownHandler(args);
+                if (!isKeyDown) OnKeyDownHandler(args);
             }
 
             return SafeNativeMethods.CallNextHookEx(

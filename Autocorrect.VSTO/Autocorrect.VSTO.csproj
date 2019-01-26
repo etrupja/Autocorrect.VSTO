@@ -273,6 +273,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Images\tesksaktelogo.jpg" />
+    <None Include="Resources\sync.png" />
     <None Include="Resources\autocorrect.jpg" />
     <None Include="Resources\icon-license-keys.png" />
     <None Include="Resources\grammarfix.png" />
@@ -288,7 +289,7 @@
     <ManifestKeyFile>Autocorrect.VSTO_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>CA387EFEDCBA3096F87D2161A9E3FC532FA1C90A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>193518982B607F33995993270FE0B8D96F04B251</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Content\Images\tesksaktelogo.ico</ApplicationIcon>
