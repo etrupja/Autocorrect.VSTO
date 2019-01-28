@@ -56,34 +56,38 @@ namespace Autocorrect.VSTO
 
         KeysConverter KeyConverter = new KeysConverter();
 
+        private Keys[] SkipOnKeys = new Keys[] { Keys.Shift, Keys.ShiftKey, Keys.RShiftKey, Keys.LShiftKey, Keys.ControlKey, Keys.Control, Keys.LControlKey, Keys.RControlKey, Keys.Back, Keys.Delete,Keys.Enter, Keys.Alt,Keys.CapsLock,Keys.Cancel };
         private Keys[] DoubleKeyArray = new Keys[] { Keys.C,Keys.E };
-        private Keys[] EndOfWordKeyArray = new Keys[] { Keys.Oemcomma, Keys.OemQuestion, Keys.OemSemicolon, Keys.OemQuotes, Keys.Oem7, Keys.Oem1, Keys.Space, Keys.OemPeriod };
+        private char[] EndOfWordKeyArray = new char[] {',','?','!',':',';','.', ' ' };
         private  void OnKeyUp(object sender,KeyEventArgs args)
         {
             if (GlobalSettings.AutocorrectDisabled) return;
+            if (args.Control) return;
+            if (SkipOnKeys.Contains(args.KeyCode)) return;
             var doc = Globals.ThisAddIn.Application.ActiveDocument;
+            Word.Selection sel = doc.Application.Selection;
+
             if (DoubleKeyArray.Contains(args.KeyCode))
             {
-                // handle non word end cases
-                Word.Selection sel = doc.Application.Selection;
-                //string keyChar = KeyConverter.ConvertToString(args.KeyData);
+
                 ParseDoubleLetters(sel);
 
-
             }
-            else if(EndOfWordKeyArray.Contains(args.KeyCode))
+            else 
             {
+                var lastTypedChar = GetLastTypedChar(sel);
                 //word end case
-
-                Word.Selection sel = doc.Application.Selection;
-                var text = sel.Text.ToLower();
-                if (text.Contains("ç") || text.Contains("ë"))
+                if (lastTypedChar.HasValue && EndOfWordKeyArray.Contains(char.ToLower(lastTypedChar.Value)))
                 {
-                    //if the word contains this chars already no need to check against dictionary
-                }
-                else
-                {
-                    ParseWordFromDictionary(sel);
+                    var text = sel.Text.ToLower();
+                    if (text.Contains("ç") || text.Contains("ë"))
+                    {
+                        //if the word contains this chars already no need to check against dictionary
+                    }
+                    else
+                    {
+                        ParseWordFromDictionary(sel);
+                    }
                 }
             }
            
@@ -108,7 +112,8 @@ namespace Autocorrect.VSTO
                         replacementText = "ë";
                         break;
                     default:
-                        break;
+                        CollaseSelection(selection);
+                        return;
                 }
                 selection.Text = isUpperCase ? replacementText.ToUpper() : replacementText.ToLower();
             }
@@ -117,13 +122,29 @@ namespace Autocorrect.VSTO
         }
         private void ParseWordFromDictionary(Word.Selection selection)
         {
+            ExtendSelectionLeft(selection, Word.WdUnits.wdCharacter);
             ExtendSelectionLeft(selection, Word.WdUnits.wdWord);
-           
+          
+
             var text = selection.Text;
+            if (text.Length == 0)
+            {
+                CollaseSelection(selection);
+                return;
+            }
             var lastCharacter = text.Last().ToString();
-           var result = _spellChecker.CheckSpell(text.Trim());
+            text = text.Remove(text.Length-1);
+           
+            var result = _spellChecker.CheckSpell(text.Trim());
             if (!string.IsNullOrWhiteSpace(result)) selection.Text = result + lastCharacter;
             CollaseSelection(selection);
+        }
+        private  char? GetLastTypedChar(Word.Selection selection)
+        {
+            ExtendSelectionLeft(selection, Word.WdUnits.wdCharacter);
+            var text = selection.Text;
+            CollaseSelection(selection);
+            return text.LastOrDefault();
         }
         //Word.Selection sel = doc.Application.Selection;
         //object unit = Word.WdUnits.wdCharacter;
