@@ -162,7 +162,13 @@ namespace Autocorrect.VSTO
 
         private void perditesoButton_Click(object sender, RibbonControlEventArgs e)
         {
-            SyncData();
+           
+          SyncData();
+        }
+
+        private void changeLangaugeToAlbanian_Click(object sender, RibbonControlEventArgs e)
+        {
+           var range = Globals.ThisAddIn.Application.ActiveDocument.Content.LanguageID = WdLanguageID.wdAlbanian;
         }
     }
 }

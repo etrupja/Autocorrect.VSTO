@@ -43,11 +43,12 @@
             this.expirationDateLable = this.Factory.CreateRibbonLabel();
             this.expirationDateValueLabel = this.Factory.CreateRibbonLabel();
             this.hasExpired = this.Factory.CreateRibbonLabel();
+            this.autocorrectToggle = this.Factory.CreateRibbonToggleButton();
             this.correctall = this.Factory.CreateRibbonButton();
             this.correctselected = this.Factory.CreateRibbonButton();
-            this.autocorrectToggle = this.Factory.CreateRibbonToggleButton();
-            this.license = this.Factory.CreateRibbonButton();
             this.perditesoButton = this.Factory.CreateRibbonButton();
+            this.changeLangaugeToAlbanian = this.Factory.CreateRibbonButton();
+            this.license = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.AlGrammar.SuspendLayout();
             this.group1.SuspendLayout();
@@ -84,6 +85,7 @@
             // ActionGroup
             // 
             this.ActionGroup.Items.Add(this.perditesoButton);
+            this.ActionGroup.Items.Add(this.changeLangaugeToAlbanian);
             this.ActionGroup.Label = "Fjalori";
             this.ActionGroup.Name = "ActionGroup";
             // 
@@ -117,6 +119,17 @@
             this.hasExpired.Name = "hasExpired";
             this.hasExpired.Visible = false;
             // 
+            // autocorrectToggle
+            // 
+            this.autocorrectToggle.Checked = true;
+            this.autocorrectToggle.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.autocorrectToggle.Image = global::Autocorrect.VSTO.Properties.Resources.autocorrect;
+            this.autocorrectToggle.Label = "Korrigjo Automatikish";
+            this.autocorrectToggle.Name = "autocorrectToggle";
+            this.autocorrectToggle.ShowImage = true;
+            this.autocorrectToggle.SuperTip = "Kur eshte aktivizuar korrigjon tekstin nderkohe qe po shkruhet";
+            this.autocorrectToggle.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.autocorrectToggle_Click);
+            // 
             // correctall
             // 
             this.correctall.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -135,16 +148,23 @@
             this.correctselected.ShowImage = true;
             this.correctselected.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctselected_Click);
             // 
-            // autocorrectToggle
+            // perditesoButton
             // 
-            this.autocorrectToggle.Checked = true;
-            this.autocorrectToggle.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.autocorrectToggle.Image = global::Autocorrect.VSTO.Properties.Resources.autocorrect;
-            this.autocorrectToggle.Label = "Korrigjo Automatikish";
-            this.autocorrectToggle.Name = "autocorrectToggle";
-            this.autocorrectToggle.ShowImage = true;
-            this.autocorrectToggle.SuperTip = "Kur eshte aktivizuar korrigjon tekstin nderkohe qe po shkruhet";
-            this.autocorrectToggle.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.autocorrectToggle_Click);
+            this.perditesoButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.perditesoButton.Image = global::Autocorrect.VSTO.Properties.Resources.sync;
+            this.perditesoButton.Label = "Perditeso Fjalorin";
+            this.perditesoButton.Name = "perditesoButton";
+            this.perditesoButton.ShowImage = true;
+            this.perditesoButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.perditesoButton_Click);
+            // 
+            // changeLangaugeToAlbanian
+            // 
+            this.changeLangaugeToAlbanian.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.changeLangaugeToAlbanian.Image = global::Autocorrect.VSTO.Properties.Resources.language_2__384774;
+            this.changeLangaugeToAlbanian.Label = "Vendos gjuhen ne shqip";
+            this.changeLangaugeToAlbanian.Name = "changeLangaugeToAlbanian";
+            this.changeLangaugeToAlbanian.ShowImage = true;
+            this.changeLangaugeToAlbanian.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.changeLangaugeToAlbanian_Click);
             // 
             // license
             // 
@@ -154,15 +174,6 @@
             this.license.Name = "license";
             this.license.ShowImage = true;
             this.license.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.license_Click);
-            // 
-            // perditesoButton
-            // 
-            this.perditesoButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.perditesoButton.Image = global::Autocorrect.VSTO.Properties.Resources.sync;
-            this.perditesoButton.Label = "Perditeso Fjalorin";
-            this.perditesoButton.Name = "perditesoButton";
-            this.perditesoButton.ShowImage = true;
-            this.perditesoButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.perditesoButton_Click);
             // 
             // Ribbon1
             // 
@@ -204,6 +215,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup ActionGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton autocorrectToggle;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton perditesoButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton changeLangaugeToAlbanian;
     }
 
     partial class ThisRibbonCollection

@@ -273,6 +273,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Images\tesksaktelogo.jpg" />
+    <None Include="Resources\language_2__384774.png" />
     <None Include="Resources\sync.png" />
     <None Include="Resources\autocorrect.jpg" />
     <None Include="Resources\icon-license-keys.png" />
