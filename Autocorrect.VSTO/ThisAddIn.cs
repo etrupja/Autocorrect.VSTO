@@ -62,7 +62,7 @@ namespace Autocorrect.VSTO
         private  void OnKeyUp(object sender,KeyEventArgs args)
         {
             if (GlobalSettings.AutocorrectDisabled) return;
-            if (args.Control) return;
+            if ((Control.ModifierKeys & Keys.Control) != 0) return;
             if (SkipOnKeys.Contains(args.KeyCode)) return;
             var doc = Globals.ThisAddIn.Application.ActiveDocument;
             Word.Selection sel = doc.Application.Selection;
