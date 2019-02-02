@@ -58,7 +58,7 @@ namespace Autocorrect.VSTO
 
         private Keys[] SkipOnKeys = new Keys[] { Keys.Shift, Keys.ShiftKey, Keys.RShiftKey, Keys.LShiftKey, Keys.ControlKey, Keys.Control, Keys.LControlKey, Keys.RControlKey, Keys.Back, Keys.Delete,Keys.Enter, Keys.Alt,Keys.CapsLock,Keys.Cancel };
         private Keys[] DoubleKeyArray = new Keys[] { Keys.C,Keys.E };
-        private Keys[] TriggerKeys = new Keys[] {Keys.OemPeriod, Keys.Oemcomma, Keys.Space, Keys.Tab };
+        private Keys[] TriggerKeys = new Keys[] {Keys.OemPeriod, Keys.Oemcomma, Keys.Space, Keys.Tab,Keys.OemQuestion,Keys.D1 };
         private  void OnKeyUp(object sender,KeyEventArgs args)
         {
             if (GlobalSettings.AutocorrectDisabled) return;
@@ -75,9 +75,8 @@ namespace Autocorrect.VSTO
             }
             else 
             {
-                var lastTypedChar = GetLastTypedChar(sel);
                 //word end case
-                if (lastTypedChar.HasValue && EndOfWordKeyArray.Contains(char.ToLower(lastTypedChar.Value)))
+                if (IsTriggerKey(args))
                 {
                     var text = sel.Text.ToLower();
                     if (text.Contains("ç") || text.Contains("ë"))
@@ -91,8 +90,16 @@ namespace Autocorrect.VSTO
                 }
             }
            
-
-           
+        }
+        private bool IsTriggerKey(KeyEventArgs args)
+        {
+            return TriggerKeys.Contains(args.KeyCode) ? (args.KeyCode == Keys.D1 ? (Control.ModifierKeys & Keys.Shift) != 0 : true) : false;
+            //if (TriggerKeys.Contains(args.KeyCode))
+            //{
+            //    if (args.KeyCode == Keys.D1) return (Control.ModifierKeys & Keys.Shift) != 0;
+            //    return true;
+            //}
+            //return false;
         }
         private void ParseDoubleLetters(Word.Selection selection)
         {
