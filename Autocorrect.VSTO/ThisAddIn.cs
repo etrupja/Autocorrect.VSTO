@@ -58,7 +58,7 @@ namespace Autocorrect.VSTO
 
         private Keys[] SkipOnKeys = new Keys[] { Keys.Shift, Keys.ShiftKey, Keys.RShiftKey, Keys.LShiftKey, Keys.ControlKey, Keys.Control, Keys.LControlKey, Keys.RControlKey, Keys.Back, Keys.Delete,Keys.Enter, Keys.Alt,Keys.CapsLock,Keys.Cancel };
         private Keys[] DoubleKeyArray = new Keys[] { Keys.C,Keys.E };
-        private char[] EndOfWordKeyArray = new char[] {',','?','!',':',';','.', ' ' };
+        private Keys[] TriggerKeys = new Keys[] {Keys.OemPeriod, Keys.Oemcomma, Keys.Space, Keys.Tab };
         private  void OnKeyUp(object sender,KeyEventArgs args)
         {
             if (GlobalSettings.AutocorrectDisabled) return;
