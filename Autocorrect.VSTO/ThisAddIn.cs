@@ -118,6 +118,9 @@ namespace Autocorrect.VSTO
                     case "ee":
                         replacementText = "ë";
                         break;
+                    case "ëe":
+                        replacementText = "e";
+                        break;
                     default:
                         CollaseSelection(selection);
                         return;
