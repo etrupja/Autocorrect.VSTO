@@ -37,18 +37,19 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.AlGrammar = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
+            this.autocorrectToggle = this.Factory.CreateRibbonToggleButton();
+            this.correctall = this.Factory.CreateRibbonButton();
+            this.correctselected = this.Factory.CreateRibbonButton();
             this.ActionGroup = this.Factory.CreateRibbonGroup();
+            this.perditesoButton = this.Factory.CreateRibbonButton();
+            this.changeLangaugeToAlbanian = this.Factory.CreateRibbonButton();
             this.licensing = this.Factory.CreateRibbonGroup();
+            this.license = this.Factory.CreateRibbonButton();
             this.LicenseDetails = this.Factory.CreateRibbonGroup();
             this.expirationDateLable = this.Factory.CreateRibbonLabel();
             this.expirationDateValueLabel = this.Factory.CreateRibbonLabel();
             this.hasExpired = this.Factory.CreateRibbonLabel();
-            this.autocorrectToggle = this.Factory.CreateRibbonToggleButton();
-            this.correctall = this.Factory.CreateRibbonButton();
-            this.correctselected = this.Factory.CreateRibbonButton();
-            this.perditesoButton = this.Factory.CreateRibbonButton();
-            this.changeLangaugeToAlbanian = this.Factory.CreateRibbonButton();
-            this.license = this.Factory.CreateRibbonButton();
+            this.shenjatepikesimit = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.AlGrammar.SuspendLayout();
             this.group1.SuspendLayout();
@@ -79,45 +80,9 @@
             this.group1.Items.Add(this.autocorrectToggle);
             this.group1.Items.Add(this.correctall);
             this.group1.Items.Add(this.correctselected);
+            this.group1.Items.Add(this.shenjatepikesimit);
             this.group1.Label = "Korrektim";
             this.group1.Name = "group1";
-            // 
-            // ActionGroup
-            // 
-            this.ActionGroup.Items.Add(this.perditesoButton);
-            this.ActionGroup.Items.Add(this.changeLangaugeToAlbanian);
-            this.ActionGroup.Label = "Fjalori";
-            this.ActionGroup.Name = "ActionGroup";
-            // 
-            // licensing
-            // 
-            this.licensing.Items.Add(this.license);
-            this.licensing.Label = "Licensim";
-            this.licensing.Name = "licensing";
-            // 
-            // LicenseDetails
-            // 
-            this.LicenseDetails.Items.Add(this.expirationDateLable);
-            this.LicenseDetails.Items.Add(this.expirationDateValueLabel);
-            this.LicenseDetails.Items.Add(this.hasExpired);
-            this.LicenseDetails.Label = "Licensa";
-            this.LicenseDetails.Name = "LicenseDetails";
-            // 
-            // expirationDateLable
-            // 
-            this.expirationDateLable.Label = "Data Skadimit";
-            this.expirationDateLable.Name = "expirationDateLable";
-            // 
-            // expirationDateValueLabel
-            // 
-            this.expirationDateValueLabel.Label = "--/--/--";
-            this.expirationDateValueLabel.Name = "expirationDateValueLabel";
-            // 
-            // hasExpired
-            // 
-            this.hasExpired.Label = "Valid";
-            this.hasExpired.Name = "hasExpired";
-            this.hasExpired.Visible = false;
             // 
             // autocorrectToggle
             // 
@@ -148,6 +113,13 @@
             this.correctselected.ShowImage = true;
             this.correctselected.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.correctselected_Click);
             // 
+            // ActionGroup
+            // 
+            this.ActionGroup.Items.Add(this.perditesoButton);
+            this.ActionGroup.Items.Add(this.changeLangaugeToAlbanian);
+            this.ActionGroup.Label = "Fjalori";
+            this.ActionGroup.Name = "ActionGroup";
+            // 
             // perditesoButton
             // 
             this.perditesoButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -166,6 +138,12 @@
             this.changeLangaugeToAlbanian.ShowImage = true;
             this.changeLangaugeToAlbanian.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.changeLangaugeToAlbanian_Click);
             // 
+            // licensing
+            // 
+            this.licensing.Items.Add(this.license);
+            this.licensing.Label = "Licensim";
+            this.licensing.Name = "licensing";
+            // 
             // license
             // 
             this.license.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -174,6 +152,39 @@
             this.license.Name = "license";
             this.license.ShowImage = true;
             this.license.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.license_Click);
+            // 
+            // LicenseDetails
+            // 
+            this.LicenseDetails.Items.Add(this.expirationDateLable);
+            this.LicenseDetails.Items.Add(this.expirationDateValueLabel);
+            this.LicenseDetails.Items.Add(this.hasExpired);
+            this.LicenseDetails.Label = "Licensa";
+            this.LicenseDetails.Name = "LicenseDetails";
+            // 
+            // expirationDateLable
+            // 
+            this.expirationDateLable.Label = "Data Skadimit";
+            this.expirationDateLable.Name = "expirationDateLable";
+            // 
+            // expirationDateValueLabel
+            // 
+            this.expirationDateValueLabel.Label = "--/--/--";
+            this.expirationDateValueLabel.Name = "expirationDateValueLabel";
+            // 
+            // hasExpired
+            // 
+            this.hasExpired.Label = "Valid";
+            this.hasExpired.Name = "hasExpired";
+            this.hasExpired.Visible = false;
+            // 
+            // shenjatepikesimit
+            // 
+            this.shenjatepikesimit.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.shenjatepikesimit.Image = global::Autocorrect.VSTO.Properties.Resources.grammarfix;
+            this.shenjatepikesimit.Label = "Korrigjo shenja e pikesimit";
+            this.shenjatepikesimit.Name = "shenjatepikesimit";
+            this.shenjatepikesimit.ShowImage = true;
+            this.shenjatepikesimit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.shenjatepikesimit_Click);
             // 
             // Ribbon1
             // 
@@ -216,6 +227,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton autocorrectToggle;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton perditesoButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton changeLangaugeToAlbanian;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton shenjatepikesimit;
     }
 
     partial class ThisRibbonCollection
