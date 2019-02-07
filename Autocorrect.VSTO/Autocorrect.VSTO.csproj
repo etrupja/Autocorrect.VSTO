@@ -290,7 +290,7 @@
     <ManifestKeyFile>Autocorrect.VSTO_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>51180E47B77C9771C22E1E6B8B47BD210BCA42ED</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3F552ADC73FAB0A3BA6C666259787A4D1F17FD9A</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Content\Images\tesksaktelogo.ico</ApplicationIcon>

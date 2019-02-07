@@ -68,6 +68,10 @@ namespace Autocorrect.Api.Services
         }
         public string ReplaceKeepCase(string input, string output)
         {
+            if (input.Length == output.Length)
+            {
+               return ReplaceAlCharacters(input, output);
+            }
             var outputArray = output.ToCharArray();
             var isUpperCase= char.IsUpper(input[0]);
             if (isUpperCase) outputArray[0] = char.ToUpperInvariant(output[0]);
